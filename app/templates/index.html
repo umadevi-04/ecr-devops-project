@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}DevShop - Home{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <h1>Welcome to DevShop</h1>
+
+        <p>
+            Discover useful technology products for developers,
+            creators and everyday users.
+        </p>
+
+        <a href="{{ url_for('product_list') }}" class="button">
+            Shop Now
+        </a>
+
+    </div>
+
+</section>
+
+
+<section class="products-section">
+
+    <h2>Featured Products</h2>
+
+    <div class="product-grid">
+
+        {% for product in products %}
+
+        <div class="product-card">
+
+            <img
+                src="{{ product.image }}"
+                alt="{{ product.name }}"
+            >
+
+            <div class="product-info">
+
+                <h3>{{ product.name }}</h3>
+
+                <p class="price">
+                    ₹{{ "{:,}".format(product.price) }}
+                </p>
+
+                <p>
+                    {{ product.description }}
+                </p>
+
+                <a
+                    href="{{ url_for('product_detail', product_id=product.id) }}"
+                    class="button"
+                >
+                    View Product
+                </a>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,6 @@
+services:
+  devshop:
+    build: .
+    container_name: devshop-app
+    ports:
+      - "5000:5000"

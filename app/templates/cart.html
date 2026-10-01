@@ -1,0 +1,79 @@
+cat > app/templates/cart.html <<'EOF'
+{% extends "base.html" %}
+
+{% block title %}Shopping Cart - DevShop{% endblock %}
+
+{% block content %}
+
+<section class="cart-page">
+
+    <h1>Your Shopping Cart</h1>
+
+    {% if products %}
+
+        <div class="cart-items">
+
+            {% for product in products %}
+
+            <div class="cart-item">
+
+                <img
+                    src="{{ product.image }}"
+                    alt="{{ product.name }}"
+                >
+
+                <div class="cart-item-info">
+
+                    <h2>{{ product.name }}</h2>
+
+                    <p>
+                        ₹{{ "{:,.0f}".format(product.price) }}
+                    </p>
+
+                    <a
+                        href="{{ url_for('remove_from_cart', product_id=product.id) }}"
+                        class="remove-btn"
+                    >
+                        Remove
+                    </a>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        <div class="cart-total">
+
+            <h2>
+                Total: ₹{{ "{:,.0f}".format(total) }}
+            </h2>
+
+            <a href="{{ url_for('product_list') }}" class="btn">
+                Continue Shopping
+            </a>
+
+        </div>
+
+    {% else %}
+
+        <div class="empty-cart">
+
+            <h2>Your cart is empty</h2>
+
+            <p>Add some products to your cart to get started.</p>
+
+            <a href="{{ url_for('product_list') }}" class="btn">
+                Browse Products
+            </a>
+
+        </div>
+
+    {% endif %}
+
+</section>
+
+{% endblock %}
+EOF
